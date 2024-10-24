@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모임배경사진</title>
+    <!-- jQuery 및 jQuery UI를 위한 CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/css/board/boardList.css">
+</head>
+<body>
+
+    
+    <!-- Header -->
+    <div class="header">
+        <h1>모임배경사진</h1>
+    </div>
+    
+    
+    <!-- Container -->
+    <div class="container">
+        
+        <th:block th:replace="~{common/header2}"></th:block>
+
+        <!-- Main content -->
+        <div class="list-wrapper" th:fragment= "list">
+            <table class="list-table">
+
+                <tbody>
+
+                    <th:block th:if="${#lists.isEmpty(boardList)}">
+                        <tr>
+                            <th colspan="6">게시글이 존재하지 않습니다.</th>
+                        </tr>
+                    </th:block>
+
+                    <th:block th:unless= "${#lists.isEmpty(boardList)}">
+
+                        <tr th:each= "board : ${boardList}" th:object="${board}">
+
+                            <td th:text="${rnum}">게시글 번호</td>
+
+                            <td>
+                                <img th:if="*{thumbnail}" th:src="*{thumbnail}" class="img">
+
+                                <a th:href="@{board/{boardTypeCode}/{boardNo} (boardTypeCode=*{boardTypeCode}, boardNo=*{boardNo})}"
+                                   th:text="*{boardTitle}">게시글 제목</a>
+
+                                <th:block th:text="|[*{commentCount}]|">댓글 수</th:block>
+                            </td>
+
+                            <td th:text="*{memberNo}">닉네임</td>
+            
+                            <td th:text="*{boardWriteDate}">2023-10-26</td>
+            
+                            <td th:text="*{readCount}">0</td>
+
+                        </tr>
+
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-box">
+                <h3>캘린더</h3>
+                <div id="calendar"></div>
+            </div>
+            <div>
+                <button th:if= "${session.loginMember}" id="btn-write">글 작성하기</button>
+            </div>
+        </div>
+
+        <!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
+      <div class="pagination-area" th:unless="${#lists.isEmpty(boardList)}">
+
+        <ul class="pagination" th:object="${pagination}">
+
+          <!-- 첫 페이지로 이동 -->
+          <li><a href="#">&lt;&lt;</a></li>
+
+          <!-- 이전 목록 마지막 번호로 이동 -->
+          <li><a href="#">&lt;</a></li>
+
+          <!-- 특정 페이지로 이동 -->
+          
+
+          <!-- 
+            #numbers.sequence(startPage, endPage)
+            -> startPage 부터 endPage까지 1씩 증가하는 숫자를 가진
+               List를 만들어서 반환
+          -->
+          <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
+           
+            <!-- 현재 보고있는 페이지 -->
+            <li th:if="${i} == *{currentPage}"> 
+              <a class="current" th:text="${i}">현재 페이지</a> 
+            </li>
+
+            <!-- 보고있지 않은 페이지 -->
+            <li th:unless="${i} == *{currentPage}"> 
+              <a href="#" th:text="${i}">이동할 수 있는 페이지</a> 
+            </li>
+
+          </th:block>
+
+
+          <!-- 다음 목록 시작 번호로 이동 -->
+          <li><a href="#">&gt;</a></li>
+
+          <!-- 끝 페이지로 이동 -->
+          <li><a href="#">&gt;&gt;</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!--  
+        th:inline="javascript" : java 타입의 데이터를 JS 타입으로 변경
+    -->
+    <script th:inline="javascript">
+        const pagination = /*[[${pagination}]]*/ "페이지네이션객체";
+    </script>
+
+    <script src="/js/board/boardList.js"></script>
+</body>
+</html>

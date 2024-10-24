@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="#{app.name}">messages.properties 값 출력</title>
+
+  <link rel="stylesheet" href="/css/main-style.css/">
+  <link rel="stylesheet" href="/css/search/search.css">
+  <th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+
+  <header>
+    <th:block th:replace="~{common/header}"></th:block>
+  </header>
+
+  <main class="main">
+    <section class="searchBox">
+      <form action="#" method="get" id="search">
+        <div class="input-wrapper">
+          <input type="text" name="query" id="searchQuery" placeholder="검색어 입력">
+        </div>
+      </form>
+    
+      
+    </section>
+
+    <th:block th:if="${recommendedGroups != null && !#lists.isEmpty(recommendedGroups)}">
+      <section class="activity-section">
+          <div class="category-container">
+              <div class="category-box" th:each="group : ${recommendedGroups}">
+                  <div class="icon">
+                      <img th:src="${group != null && group.groupMainImg != null ? group.groupMainImg : '/images/default.png'}" alt="[[${group.groupName}]] 아이콘" />
+                  </div>
+                  <div class="details">
+                      <a th:href="@{/groupMain/{groupName}(groupName=${group.groupName})}" class="activity-name" style="color: black; text-decoration: none; text-decoration-line: none;">[[${group.groupName}]]</a>
+                      <div class="group-name">[[${group.groupIntroduce}]]</div>
+                      <div class="location">[[${group.categoryName}]]</div>
+                      <div class="participants">
+                          <i class="fa-solid fa-users"> &nbsp;</i>
+                          <div>
+                              [[${group.currentPopulation}]] / [[${group.maxPopulation}]]
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+    </th:block>
+
+  </main>
+
+  <footer>
+    <th:block th:replace="~{common/footer}"></th:block>
+  </footer>
+
+  <script src="/js/search/search.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

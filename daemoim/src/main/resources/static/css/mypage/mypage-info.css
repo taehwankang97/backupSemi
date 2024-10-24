@@ -1,0 +1,81 @@
+/* 기본 스타일 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* 동그라미 초기 상태 */
+#side-menu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  transition: width 0.5s, height 0.5s, right 0.5s, border-radius 0.5s;
+  overflow: hidden;
+}
+
+#side-menu .circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#side-menu img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* 사이드 메뉴 확장 시 */
+#side-menu:hover {
+  width: 200px;
+  height: 100vh;
+  right: 0;
+  border-radius: 0;
+  background-color: #333;
+  transition: width 0.5s, height 0.5s, right 0.5s, border-radius 0.5s;
+}
+
+/* 사이드 메뉴 내부 아이템 */
+#side-menu ul {
+  list-style: none;
+  padding: 20px;
+  margin-top: 100px;
+  display: none; /* 초기 상태에서 숨기기 */
+}
+
+#side-menu:hover ul {
+  display: block; /* 호버 시 메뉴 나타남 */
+}
+
+#side-menu ul li {
+  margin-bottom: 20px;
+}
+
+#side-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+#side-menu ul li a:hover {
+  text-decoration: underline;
+}
+
+/* 사이드 메뉴 호버 시 텍스트 색상 */
+#side-menu:hover .circle {
+  display: none; /* 호버 시 원형 아이콘 숨기기 */
+}

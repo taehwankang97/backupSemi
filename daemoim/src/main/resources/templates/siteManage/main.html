@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+
+<style>
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+    width: 100%;
+}
+
+.section {
+    margin-bottom: 50px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form input, form textarea, form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+form button {
+    background-color: #ffcc00;
+    border: none;
+    cursor: pointer;
+}
+</style>
+
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#dashboard">대시보드</a></li>
+                <li><a href="#meetings">모임 조회</a></li>
+                <li><a href="#members">회원 조회</a></li>
+                <li><a href="#suspend">계정 정지</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <!-- 대시보드 -->
+            <section id="dashboard" class="section">
+                <h2>대시보드</h2>
+                <div class="card">
+                    <table border="1">
+                        <tr>
+                            <td>총 모임 수</td>
+                            <td th:text="${countList.groupAllcount}">총모임수</td>
+                        </tr>
+                        <tr>
+                            <td>총 회원 수</td>
+                            <td th:text="${countList.memberAllcount}">총회원수</td>
+                        </tr>
+                        <tr>
+                            <td>정지된 계정</td>
+                            <td th:text="${countList.outMemberCount}">정지된계정</td>
+                        </tr>
+                        <tr>
+                            <td>오늘의 새 가입</td>
+                            <td th:text="${countList.todayEnrollCount}">오늘의새가입</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 모임 조회 -->
+            <section id="meetings" class="section">
+                <h2>모임 조회</h2>
+                <table>
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>모임명</th>
+                        <th>주최자</th>
+                        <th>참가자 수</th>
+                        <th>생성일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <th:block th:if= "${groupList}" th:each= "group:${groupList}" th:object="${group}">
+                        <tr>
+                          <td th:text="*{groupNo}">#</td>
+                          <td th:text="*{groupName}">모임명</td>
+                          <td th:text="*{memberNickname}">주최자</td>
+                          <td th:text="*{memberCount}">참가자 수</td>
+                          <td th:text="*{groupDate}">생성일</td>
+                      </tr>
+                      </th:block>
+                      <th:block th:unless= "${groupList}">
+                        <tr>
+                            <th>#</th>
+                            <th>모임명</th>
+                            <th>주최자</th>
+                            <th>참가자 수</th>
+                            <th>생성일</th>
+                        </tr>
+                      </th:block>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 회원 조회 -->
+            <section id="members" class="section">
+                <h2>회원 조회</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>이름</th>
+                            <th>이메일</th>
+                            <th>가입일</th>
+                            <th>상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <th:block th:if= "${memberList}" th:each= "member:${memberList}" th:object="${member}">
+                        <tr>
+                          <th th:text="*{memberNo}">#</th>
+                          <th th:text="*{memberNickname}">이름</th>
+                          <th th:text="*{memberEmail}">이메일</th>
+                          <th th:text="*{enrollDate}">가입일</th>
+                          <th th:text="*{memberDelFl} == 'N' ? '가입' : '탈퇴'">상태</th>
+                      </tr>
+                      </th:block>
+                      <th:block th:unless= "${memberList}">
+                        <tr>
+                          <th>#</th>
+                          <th>이름</th>
+                          <th>이메일</th>
+                          <th>가입일</th>
+                          <th>상태</th>
+                      </tr>
+                      </th:block>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 계정 정지 -->
+            <section id="suspend" class="section">
+                <h2>계정 정지</h2>
+                <form>
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" placeholder="이메일을 입력하세요">
+
+                    <label for="days">정지 기간 (일)</label>
+                    <input type="number" id="days" placeholder="정지 기간 입력">
+
+                    <label for="reason">정지 사유</label>
+                    <textarea id="reason" placeholder="정지 사유 입력"></textarea>
+
+                    <button type="submit">계정 정지</button>
+                </form>
+            </section>
+
+            <!-- 계정 탈퇴 -->
+            <section id="withdrawal" class="section">
+                <h2>계정 탈퇴</h2>
+                <form>
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" placeholder="이메일을 입력하세요">
+
+                    <label for="reason">탈퇴 사유</label>
+                    <textarea id="reason" placeholder="탈퇴 사유 입력"></textarea>
+
+                    <button type="submit">계정 탈퇴</button>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.daemoim.groupManage.mapper.GroupMemberMapper">
+
+	<!-- 모임 회원수 조회 -->
+	<select id="getMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM "MEMBER_GROUP" MG
+		JOIN "MEMBER" M ON(MG.MEMBER_NO = M.MEMBER_NO)
+		WHERE GROUP_NO = #{groupNo}
+		AND M.MEMBER_OUT_FL = 'N'
+		AND M.MEMBER_DEL_FL = 'N'
+		AND MG.MEMBER_GROUP_DEL_FL = 'N'
+		AND MG.MEMBER_GROUP_BAN = 'N'
+	</select>
+	
+	<!-- 전체멤버 상세조회 -->
+	<select id="getMembers" resultType="GroupMemberManageDto">
+		SELECT
+			MG.MEMBER_NO,
+			MEMBER_ID,
+			MEMBER_EMAIL,
+			MEMBER_NICKNAME,
+			TO_CHAR(ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') "ENROLL_DATE",
+			AUTHORITY,
+			MEMBER_IMG,
+			TO_CHAR(MEMBER_GROUP_ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') "MEMBER_GROUP_ENROLL_DATE"
+		FROM MEMBER_GROUP MG
+		JOIN "MEMBER" M ON (MG.MEMBER_NO = M.MEMBER_NO)
+		WHERE
+			MEMBER_DEL_FL = 'N'
+		AND	MEMBER_OUT_FL = 'N'
+		AND MG.GROUP_NO = #{groupNo}
+		AND MG.MEMBER_GROUP_DEL_FL = 'N'
+		AND MG.MEMBER_GROUP_BAN = 'N'
+		<choose>
+			<when test='key== "i"'>
+				AND MEMBER_ID LIKE '%' || #{query} || '%'
+			</when>
+			<when test='key== "n"'>
+				AND MEMBER_NICKNAME LIKE '%' || #{query} || '%'
+			</when>
+		</choose>
+		
+		<choose>
+			<when test="order== 1">
+				ORDER BY MEMBER_ID ASC
+			</when>
+			<when test="order==-1">
+				ORDER BY MEMBER_ID DESC
+			</when>
+			
+			<when test="order== 2">
+				ORDER BY MEMBER_NICKNAME ASC
+			</when>
+			<when test="order==-2">
+				ORDER BY MEMBER_NICKNAME DESC
+			</when>
+			
+			<when test="order== 3">
+				ORDER BY MEMBER_GROUP_ENROLL_DATE ASC
+			</when>
+			<when test="order==-3">
+				ORDER BY MEMBER_GROUP_ENROLL_DATE DESC
+			</when>
+			
+			<when test="order== 4">
+				ORDER BY MEMBER_DEL_FL ASC
+			</when>
+			<when test="order==-4">
+				ORDER BY MEMBER_DEL_FL DESC
+			</when>
+			
+			<when test="order== 5">
+				ORDER BY MEMBER_GROUP_BAN ASC
+			</when>
+			<when test="order==-5">
+				ORDER BY MEMBER_GROUP_BAN DESC
+			</when>
+			
+			<otherwise>
+				ORDER BY AUTHORITY DESC, MEMBER_GROUP_ENROLL_DATE ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 가입신청 수 확인 -->
+	<select id="getInviteCount">
+		SELECT COUNT(*) FROM "INVITE" WHERE GROUP_NO = #{groupNo}
+	</select>
+	
+	<!-- 가입신청목록 확인 -->
+	<select id="getInviteMembers">
+		SELECT
+			I.MEMBER_NO,
+			TO_CHAR(INVITE_REQ_TIME, 'YYYY"년"MM"월"DD"일"') "INVITE_REQ_TIME",
+			MEMBER_ID,
+			MEMBER_IMG,
+			MEMBER_NICKNAME,
+			MEMBER_IM
+		FROM
+			"INVITE" I
+		JOIN "MEMBER" M ON(I.MEMBER_NO = M.MEMBER_NO)
+		WHERE
+			GROUP_NO = #{groupNo}
+		AND	M.MEMBER_DEL_FL = 'N'
+		AND	M.MEMBER_OUT_FL = 'N'
+		AND I.INVITE_DEL_FL = 'N'
+	</select>
+	
+	<!-- 모임장 변경하기 -->
+	<update id="changeLeader">
+		UPDATE "GROUP"
+		SET MEMBER_NO = #{memberNo}
+		WHERE GROUP_NO = #{groupNo}
+	</update>
+	<!-- 모임장 권한 변경하기 -->
+	<update id="changeLeaderAuthority">
+		UPDATE "MEMBER"
+		SET AUTHORITY = #{level}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강퇴멤버수 조회 -->
+	<select id="getBanCount">
+		SELECT COUNT(*)
+		FROM "MEMBER_GROUP" MG
+		JOIN "MEMBER" M ON (MG.MEMBER_NO = M.MEMBER_NO)
+		WHERE
+			GROUP_NO = #{groupNo}
+		AND M.MEMBER_DEL_FL ='N'
+		AND M.MEMBER_OUT_FL ='N'
+		AND MEMBER_GROUP_BAN = 'Y'
+		AND MEMBER_GROUP_DEL_FL = 'Y'
+	</select>
+	
+	<!-- 강퇴멤버리스트 조회 -->
+	<select id="getBans" resultType="GroupMemberManageDto">
+		SELECT
+			M.MEMBER_NO,
+			MEMBER_ID,
+			MEMBER_NICKNAME,
+			MEMBER_DEL_FL,
+			TO_CHAR(ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') "ENROLL_DATE",
+			MEMBER_IMG,
+			TO_CHAR(MEMBER_GROUP_ENROLL_DATE, 'YYYY"년"MM"월"DD"일"') "MEMBER_GROUP_ENROLL_DATE"
+		FROM MEMBER_GROUP MG
+		JOIN "MEMBER" M ON (MG.MEMBER_NO = M.MEMBER_NO)
+		WHERE
+			M.MEMBER_DEL_FL = 'N'
+		AND M.MEMBER_OUT_FL ='N'
+		AND MG.GROUP_NO = #{groupNo}
+		AND MG.MEMBER_GROUP_BAN = 'Y'
+		AND MG.MEMBER_GROUP_DEL_FL = 'Y'
+		<choose>
+			<when test="order== 1">
+				ORDER BY MEMBER_ID ASC
+			</when>
+			<when test="order==-1">
+				ORDER BY MEMBER_ID DESC
+			</when>
+			
+			<when test="order== 2">
+				ORDER BY MEMBER_NICKNAME ASC
+			</when>
+			<when test="order==-2">
+				ORDER BY MEMBER_NICKNAME DESC
+			</when>
+			
+			<when test="order== 3">
+				ORDER BY MEMBER_GROUP_ENROLL_DATE ASC
+			</when>
+			<when test="order==-3">
+				ORDER BY MEMBER_GROUP_ENROLL_DATE DESC
+			</when>
+			
+			<otherwise>
+				ORDER BY AUTHORITY DESC, MEMBER_GROUP_ENROLL_DATE ASC
+			</otherwise>
+		</choose>
+	</select>
+
+</mapper>

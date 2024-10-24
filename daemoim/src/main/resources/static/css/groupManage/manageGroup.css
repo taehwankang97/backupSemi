@@ -1,0 +1,495 @@
+*{box-sizing: border-box;}
+
+.red{color: red;}
+.green{color: green;}
+.grey{color: grey;}
+.display-none{display: none !important;}
+
+.displayCenter{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+/* 버튼 */
+.hoverPoint{
+  font-size: 0.8em;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  border: 1px solid #989898;
+  border-radius: 3px;
+  background-color: rgb(243, 243, 243);
+}
+.hoverPoint:hover{
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: #989898;
+  border-radius: 4px;
+}
+
+/* ****************************** */
+/* ************ 메인 ************ */
+main{
+  margin: 180px; /* 해더에 밀림 ㅜㅜ */
+  min-height: 63vh;
+  font-family: 'Pretendard-Regular';
+}
+.space-around{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.space-between{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.mainSec{
+  width: 1070px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  padding: 15px;
+  margin: 15px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 10px;
+}
+.mainSec > h1{
+  margin: 15px 0 20px 0;
+  font-family: 'MinSans-Regular';
+  font-weight: 700;
+}
+.mainSec > .searchForm{
+  margin: 0 0 20px;
+}
+.mainSec > div > form select{
+  width: 85px;
+  height: 25px;
+}
+.mainSec > .searchForm button{
+  margin: 10px;
+}
+.divInline{
+  display: inline;
+  margin: 5px;
+}
+.createContent{
+  width: 980px;
+  border-radius: 5px;
+  padding: 30px;
+  margin: 10px;
+  background-color: rgb(230, 230, 230);
+}
+.serviceIntroduce{
+  margin: 0 0 10px;
+}
+#btnDiv{
+  flex-grow: 1;
+  margin: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+}
+#btnDiv > div{ /* 하단 수정, 돌아가기버튼 */
+  width: 450px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: rgb(30, 30, 30);
+  color: rgb(215, 215, 215);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#btnDiv > div:hover{
+  cursor: pointer;
+  border: 3px solid rgb(99, 99, 99);
+}
+.title{
+  margin: 50px 0 20px 0;
+  font-family: 'AssacomFreeGothicTTF-Regular';
+  font-size: 18px;
+}
+/* ************************************************ */
+/* ***************모임명********************** */
+.createContent > #groupName{
+  height: 35px;
+  width: 870px;
+}
+#searchKey + input{ /* 회원검색창 */
+  height: 31px;
+}
+/* ************************************************ */
+/* ***************이미지 수정********************** */
+#imageSec{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+#imageSec > section{
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.imgDelBtn:hover{
+  cursor: pointer;
+}
+#imageSec > section > div:last-child{
+  height: 65px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+#imageSec > section > div:last-child > *{
+  height: 30px;
+}
+#inputImgPreview1{
+  width: 200px;
+  height: 200px;
+}
+#inputImgPreview2{
+  max-width: 360px;
+  max-height: 120px;
+}
+.inputName{
+  margin: 0 0 5px;
+}
+.ActImgName{
+  margin: 10px 0 0;
+}
+.preViewer{
+  margin: 70px 5px 5px;
+  width: 502px;
+  height: 342px;
+  border: 1px solid #989898;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: flex-start;
+}
+#inputImgPreview3{ /* 모임화면 미리보기창의 해더이미지 */
+  width: 500px;
+  height: 75px;
+}
+#preViewIntroduce{
+  margin: 0;
+  width: 500px;
+  height: 70px;
+  background-color: #c4c4c4;
+  text-align: center;
+  align-content: center;
+
+  display: flex;
+  flex-direction: column;
+
+}
+#preViewIntroduce > span{display: block;}
+#preViewIntroduce > span:first-child{font-size: 1.2em; font-weight: bold;}
+#preViewIntroduce > span:nth-child(2){font-size: 1.2em; font-weight: bold; margin: 0 0 5px;}
+#preViewIntroduce > span:nth-child(n+3){font-size: 0.4em;}
+.preViewDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 215px;
+  font-size: 0.1em;
+  font-weight: bold;
+}
+#preViewDiv1{
+  width: 90px;
+}
+#preViewDiv1-1{
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 5px;
+}
+#preViewDiv2{
+  width: 90px;
+  padding: 10px;
+}
+#preViewDiv2 > div{
+  background-color: #989898;
+  border-radius: 3px;
+  flex-grow: 1;
+  padding: 5px;
+  margin: 5px;
+}
+#preViewDiv3{
+  width: 290px;
+}
+#preViewDiv3 > div > div{
+  width: 135px;
+  height: 60px;
+  background-color: #989898;
+  border-radius: 5px;
+  margin: 10px;
+  flex-grow: 1;
+  text-align: center;
+  align-content: center;
+}
+#preViewDiv3 > div:first-child{
+  width: 290px;
+  text-align: right;
+}
+#preViewDiv3 span{background-color: #989898;}
+#preViewDiv3 > div:not(:first-child){
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+}
+
+/* ********************************************************* */
+/* *********************** 카테고리 ************************/
+.categoryTitleSpan{
+  display: block;
+  margin: 10px 0 10px;
+}
+.categoryNameSpan{
+  display: block;
+  font-weight: bold;
+  margin: 10px 0 20px;
+}
+.categoryRadio, .categoryListRadio{/* 라디오 버튼을 숨김 */
+  display: none;
+}
+label {
+  width: 115px;
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #d6d6d6; /* 기본 테두리 투명 */
+  cursor: pointer;
+  display: inline-block;
+  transition: border 0.3s ease;
+  text-align: center;
+}
+label:hover {
+  border-color: #666; 
+}
+input[type="radio"]:checked + label { /* 라벨이 꼭 뒤에잇어야함 */
+  border: 2px solid #333; /* 선택된 상태에서 테두리 */
+}
+
+.categoryBox{
+  width: 920;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#categoryBtn:hover, #categoryListBtn:hover{
+  cursor: pointer;
+  background-color: rgb(46, 46, 46);
+  color: wheat;
+}
+
+/* 제출버튼 */
+.submitDiv{
+  user-select: none; /* 드래그 막음 */
+}
+.submitDiv:hover{
+  cursor: pointer;
+}
+
+/* ************************************************** */
+/* ****************** 사이드바 ********************** */
+#sideSec1{
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  /* overflow: hidden; */
+}
+#sideSec1 > div{
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+}
+#sideSec1 > #sideLinkList > a{
+  padding: 15px;
+  margin: 10px;
+  width: 170px;
+  height: 50px;
+  border-radius: 3px;
+  justify-content: center;
+  
+  border: 1px solid rgb(116, 116, 116);
+  background-color: rgb(230, 230, 230);
+  box-shadow: 2px 2px 4px grey;
+  
+  font-family: 'MinSans-Regular';
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+#sideSec1 > #sideLinkList > a:nth-of-type(2n){   align-self: flex-start;}
+#sideSec1 > #sideLinkList > a:nth-of-type(2n-1){ align-self: flex-end;}
+#sideSec1 > #sideCommentList > a{
+  /* font-family: 'MinSans-Regular'; */
+  /* font-weight: 700; */
+  text-align: left;
+  text-decoration: none;
+  color: black;
+  white-space: nowrap;
+  display: flex; /* p태그 정렬용 */
+}
+#sideSec1 > #sideCommentList > a > .commentNickname{
+  font-size: 0.8em;
+  font-weight: bold;
+}
+#sideSec1 > #sideCommentList > a > .commentContent{
+  font-size: 0.8em;
+}
+#sideSec1 > #sideCommentList > a > .commentWriteDate{
+  font-size: 0.6em;
+  color: red;
+}
+#sideSec2{
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  /* overflow: hidden; */
+}
+.sideStiky{
+  top: 185px; /* 해더높이 + 간격 */
+}
+/* #sideLinkList{
+  background-color: #e6e6e6;
+  width: 200px;
+  border-radius: 7px;
+  padding: 10px;
+  height: 240px;
+}
+#sideLinkList li{
+  color: black;
+  text-decoration: none;
+  list-style: none;
+}
+#sideLinkList ul{
+  margin-inline-start: 0px;
+  padding-inline-start: 15px;
+} */
+
+
+/* ********************************************** */
+/* ******************표************************** */
+#memberManageTable{
+  border-collapse: collapse;
+}
+tr th{height: 40px; background-color: #A0937D;}
+#tableTr > th:first-child{ min-width: 130px;}    /* 아이디 */
+#tableTr > th:nth-child(2){ min-width: 90px;}   /* 프로필사진 */
+#tableTr > th:nth-child(3){ min-width: 120px;}   /* 닉네임 */
+#tableTr > th:nth-child(4){ min-width: 160px;}  /* 가입일 */
+#tableTr > th:nth-child(6){ min-width: 70px;}   /* 권한1 */
+#tableTr > th:last-child{ min-width: 70px;}     /* 권한2 */
+.orderBtn:hover{
+  background-color: #a18e6e;
+  cursor: pointer;
+}
+tr>td {
+  text-align: center;
+  height: 36px;
+}
+tbody tr:nth-of-type(2n){
+  background-color: #ececec;
+}
+tbody tr:hover{
+  background-color: #dfdfdf;
+}
+#memberManageTable tr td:nth-of-type(3):hover{
+  cursor: pointer;
+}
+.pagination-area{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+}
+.pagination li{
+  list-style: none;
+  margin: 10px;
+}
+.tableBody button{
+  width: 80px;
+  border: #333;
+}
+/* 공지게시판미리보기 */
+.boardTr > th:first-child{ min-width: 90px;}    /* 게시글번호 */
+.boardTr > th:nth-child(2){ width: 350px;}      /* 제목 */
+.boardTr > td:nth-child(2){ width: 350px; text-align: left;}   /* 제목 */
+.boardTr > th:nth-child(3){ min-width: 80px;}   /* 조회수 */
+.boardTr > th:nth-child(4){ min-width: 150px;}  /* 작성일 */
+.boardTr > th:nth-child(5){ min-width: 100px;}  /* 작성자 */
+.boardTr .likeCount{
+  font-size: 0.8em;
+  color: red;
+}
+.boardTr .commentCount{
+  font-size: 0.8em;
+  color: grey;
+}
+.boardTr>.boardTitle{
+  display: flex;  
+  flex-direction: row;
+  align-items: center;
+}
+.boardTr>.boardNickname{
+  width: 100px;
+  display: block;
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘치는 부분을 ...로 표시 */
+}
+.pagination > li{
+  text-align: center;
+  min-width: 20px;
+  border: 1px solid #333;
+  border-radius: 3px;
+}
+.pagination>li>a{
+  color: black;
+
+}
+.boardTr a{
+  text-decoration: none;
+  color: black;
+
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* *********************************** */
+@font-face {
+  font-family: 'MinSans-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AssacomFreeGothicTTF-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/AssacomFreeGothicTTF-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
